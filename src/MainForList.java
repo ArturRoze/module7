@@ -28,9 +28,19 @@ public class MainForList {
         List<Order> basicList6 = basicList();
         divideOrdersByCurrency(basicList6);
 
-        List<User> users = new ArrayList<>();
-        System.out.println(getCityUserMap(users));
-
+//        List<User> users = new ArrayList<>();
+//        users.add(new User(1, "Artur", "Roze", "Vyshgorod", 10000));
+//        users.add(new User(2, "Nick", "Shevchenko", "Kiev", 20000));
+//        users.add(new User(3, "David", "Poroshenko", "Kharkov", 30000));
+//        users.add(new User(4, "Erika", "Obida", "Dnepr", 40000));
+//        users.add(new User(5, "Ann", "Borzova", "Irpen", 50000));
+//        users.add(new User(6, "Victor", "Oladenko", "Vinnica", 60000));
+//        users.add(new User(7, "Peter", "Govoruha", "Yalta", 70000));
+//        users.add(new User(8, "Vanya", "Lapot", "Uman", 80000));
+//        users.add(new User(9, "Victor", "Repin", "Kanev", 90000));
+//        users.add(new User(10, "Alisa", "Petrov", "Kursk", 55555));
+        List<Order> basicList7 = basicList();
+        getCityUserMap(basicList7);
     }
 
     public static List<Order> sortOrdersDecreasePrice(List<Order> order) {
@@ -151,6 +161,29 @@ public class MainForList {
         return orders;
     }
 
+    public static Map<String, List<Order>> getCityUserMap(List<Order> orders) {
+        Map<String, List<Order>> cityUserMap = new HashMap<>();
+        for (Order order : orders) {
+            String key = order.getUser().getCity();
+            if (!cityUserMap.containsKey(key)) {
+                List<Order> usersCity = new ArrayList<>();
+                usersCity.add(order);
+                cityUserMap.put(key, usersCity);
+            } else {
+                cityUserMap.get(key).add(order);
+            }
+        }
+        System.out.println("Show map by cities:");
+        for (Map.Entry<String, List<Order>> entry : cityUserMap.entrySet()) {
+            System.out.print("city: " + entry.getKey() + " -> users: ");
+            for (Order ord : entry.getValue()) {
+                System.out.print(ord.getUser().getFirstName() + " " + ord.getUser().getLastName() + ", ");
+            }
+            System.out.println();
+        }
+        return cityUserMap;
+    }
+
     public static List<Order> basicList() {
         List<User> users = new ArrayList<>();
         List<Order> orders = new ArrayList<>();
@@ -177,26 +210,5 @@ public class MainForList {
         orders.add(new Order(10, 555, Currency.UAH, "Marker", "Rozetka", users.get(0)));
         orders.add(new Order(10, 555, Currency.UAH, "Marker", "Rozetka", users.get(0)));
         return orders;
-    }
-
-    public static List<List<User>> getCityUserMap(List<User> users) {
-        Map<String, List<User>> cityUserMap = new HashMap<>();
-        for(User user: users) {
-            String key = user.getCity();
-            if(!cityUserMap.containsKey(key)) {
-                List<User> usersCity = new ArrayList<>();
-                usersCity.add(user);
-                cityUserMap.put(key, usersCity);
-            } else {
-                cityUserMap.get(key).add(user);
-            }
-        }
-
-        List<List<User>> usersCity = new ArrayList<>(cityUserMap.values());
-        /*for (Map.Entry<String, List<User>> entry : cityUserMap.entrySet()) {
-            usersCity.add(entry.getValue());
-        }*/
-
-        return usersCity;
     }
 }
