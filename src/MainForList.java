@@ -81,7 +81,7 @@ public class MainForList {
             public int compare(Order o1, Order o2) {
                 int compared = o1.getItemName().compareTo(o2.getItemName());
                 if (compared == 0) {
-                    compared = o1.getShopIdentificator().compareTo(o2.getShopIdentificator());
+                    compared = o1.getShopIdentifier().compareTo(o2.getShopIdentifier());
                 }
                 if (compared == 0) {
                     compared = o1.getUser().getCity().compareTo(o2.getUser().getCity());

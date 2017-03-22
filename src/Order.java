@@ -4,15 +4,15 @@ public class Order implements Comparable {
     private int price;
     private Currency currency;
     private String itemName;
-    private String shopIdentificator;
+    private String shopIdentifier;
     private User user;
 
-    public Order(long id, int price, Currency currency, String itemName, String shopIdentificator, User user) {
+    public Order(long id, int price, Currency currency, String itemName, String shopIdentifier, User user) {
         this.id = id;
         this.price = price;
         this.currency = currency;
         this.itemName = itemName;
-        this.shopIdentificator = shopIdentificator;
+        this.shopIdentifier = shopIdentifier;
         this.user = user;
     }
 
@@ -48,12 +48,12 @@ public class Order implements Comparable {
         this.itemName = itemName;
     }
 
-    public String getShopIdentificator() {
-        return shopIdentificator;
+    public String getShopIdentifier() {
+        return shopIdentifier;
     }
 
-    public void setShopIdentificator(String shopIdentificator) {
-        this.shopIdentificator = shopIdentificator;
+    public void setShopIdentifier(String shopIdentifier) {
+        this.shopIdentifier = shopIdentifier;
     }
 
     public User getUser() {
@@ -75,7 +75,7 @@ public class Order implements Comparable {
         if (price != order.price) return false;
         if (currency != order.currency) return false;
         if (itemName != null ? !itemName.equals(order.itemName) : order.itemName != null) return false;
-        if (shopIdentificator != null ? !shopIdentificator.equals(order.shopIdentificator) : order.shopIdentificator != null)
+        if (shopIdentifier != null ? !shopIdentifier.equals(order.shopIdentifier) : order.shopIdentifier != null)
             return false;
         return user != null ? user.equals(order.user) : order.user == null;
     }
@@ -86,7 +86,7 @@ public class Order implements Comparable {
         result = 31 * result + price;
         result = 31 * result + (currency != null ? currency.hashCode() : 0);
         result = 31 * result + (itemName != null ? itemName.hashCode() : 0);
-        result = 31 * result + (shopIdentificator != null ? shopIdentificator.hashCode() : 0);
+        result = 31 * result + (shopIdentifier != null ? shopIdentifier.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
     }
@@ -98,7 +98,7 @@ public class Order implements Comparable {
                 ", price=" + price +
                 ", currency=" + currency +
                 ", itemName='" + itemName + '\'' +
-                ", shopIdentificator='" + shopIdentificator + '\'' +
+                ", shopIdentifier='" + shopIdentifier + '\'' +
                 ", user=" + user +
                 '}';
     }
