@@ -105,6 +105,9 @@ public class Order implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        return this.getPrice() - ((Order) o).getPrice();
+        if (o instanceof Order){
+            return this.getPrice() - ((Order) o).getPrice();
+        }
+        throw new IllegalArgumentException("We cannot compare Order with " + o.getClass().getName());
     }
 }

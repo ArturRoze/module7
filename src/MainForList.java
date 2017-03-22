@@ -12,9 +12,9 @@ public class MainForList {
         List<Order> basicList2 = basicList();
         sortOrdersIncreasePriceAndCityOfUser(basicList2);
 
-        System.out.println("Sorting orders itemName, shopIdentificator and cityOfUser:");
+        System.out.println("Sorting orders itemName, shopIdentifier and cityOfUser:");
         List<Order> basicList3 = basicList();
-        sortOrdersItemNameShopIdentificatorCityOfUser(basicList3);
+        sortOrdersItemNameShopIdentifierCityOfUser(basicList3);
 
         System.out.println("Unique elements from list:");
         List<Order> basicList4 = basicList();
@@ -27,12 +27,16 @@ public class MainForList {
         System.out.println("Divide orders by currency:");
         List<Order> basicList6 = basicList();
         divideOrdersByCurrency(basicList6);
+
+        List<User> users = new ArrayList<>();
+        System.out.println(getCityUserMap(users));
+
     }
 
-    public static void sortOrdersDecreasePrice(List<Order> order) {
+    public static List<Order> sortOrdersDecreasePrice(List<Order> order) {
         if (order == null) {
             System.out.println("Nothing sort");
-            return;
+            return null;
         }
         Collections.sort(order, new Comparator<Order>() {
             @Override
@@ -43,12 +47,13 @@ public class MainForList {
         for (Order ord : order) {
             System.out.println(ord);
         }
+        return order;
     }
 
-    public static void sortOrdersIncreasePriceAndCityOfUser(List<Order> orders) {
+    public static List<Order> sortOrdersIncreasePriceAndCityOfUser(List<Order> orders) {
         if (orders == null) {
             System.out.println("Nothing sort");
-            return;
+            return null;
         }
         Collections.sort(orders, new Comparator<Order>() {
             @Override
@@ -63,12 +68,13 @@ public class MainForList {
         for (Order ord : orders) {
             System.out.println(ord);
         }
+        return orders;
     }
 
-    public static void sortOrdersItemNameShopIdentificatorCityOfUser(List<Order> orders) {
+    public static List<Order> sortOrdersItemNameShopIdentifierCityOfUser(List<Order> orders) {
         if (orders == null) {
             System.out.println("Nothing sort");
-            return;
+            return null;
         }
         Collections.sort(orders, new Comparator<Order>() {
             @Override
@@ -86,23 +92,25 @@ public class MainForList {
         for (Order ord : orders) {
             System.out.println(ord);
         }
+        return orders;
     }
 
-    public static void getUniqueOrdersFromList(List<Order> orders) {
+    public static Set<Order> getUniqueOrdersFromList(List<Order> orders) {
         if (orders == null) {
             System.out.println("Nothing sort");
-            return;
+            return null;
         }
         Set<Order> uniqueElements = new HashSet<>(orders);
         for (Order uniqueElement : uniqueElements) {
             System.out.println(uniqueElement);
         }
+        return uniqueElements;
     }
 
-    public static void removeOrdersWithPriceLessThan1500(List<Order> orders) {
+    public static List<Order> removeOrdersWithPriceLessThan1500(List<Order> orders) {
         if (orders == null) {
             System.out.println("Nothing sort");
-            return;
+            return null;
         }
         Iterator<Order> iterator = orders.iterator();
         while (iterator.hasNext()) {
@@ -114,12 +122,13 @@ public class MainForList {
         for (Order ord : orders) {
             System.out.println(ord);
         }
+        return orders;
     }
 
-    public static void divideOrdersByCurrency(List<Order> orders) {
+    public static List<Order> divideOrdersByCurrency(List<Order> orders) {
         if (orders == null) {
             System.out.println("Nothing sort");
-            return;
+            return null;
         }
         List<Order> ordersWithUah = new ArrayList<>();
         List<Order> ordersWithUsd = new ArrayList<>();
@@ -139,6 +148,7 @@ public class MainForList {
         for (Order ord : ordersWithUsd) {
             System.out.println(ord);
         }
+        return orders;
     }
 
     public static List<Order> basicList() {
@@ -167,5 +177,26 @@ public class MainForList {
         orders.add(new Order(10, 555, Currency.UAH, "Marker", "Rozetka", users.get(0)));
         orders.add(new Order(10, 555, Currency.UAH, "Marker", "Rozetka", users.get(0)));
         return orders;
+    }
+
+    public static List<List<User>> getCityUserMap(List<User> users) {
+        Map<String, List<User>> cityUserMap = new HashMap<>();
+        for(User user: users) {
+            String key = user.getCity();
+            if(!cityUserMap.containsKey(key)) {
+                List<User> usersCity = new ArrayList<>();
+                usersCity.add(user);
+                cityUserMap.put(key, usersCity);
+            } else {
+                cityUserMap.get(key).add(user);
+            }
+        }
+
+        List<List<User>> usersCity = new ArrayList<>(cityUserMap.values());
+        /*for (Map.Entry<String, List<User>> entry : cityUserMap.entrySet()) {
+            usersCity.add(entry.getValue());
+        }*/
+
+        return usersCity;
     }
 }
