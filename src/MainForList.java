@@ -28,6 +28,7 @@ public class MainForList {
         List<Order> basicList6 = basicList();
         divideOrdersByCurrency(basicList6);
 
+        System.out.println("Show map of unique cities:");
         List<Order> basicList7 = basicList();
         getCityUserMap(basicList7);
     }
@@ -162,7 +163,7 @@ public class MainForList {
                 cityUserMap.get(key).add(order);
             }
         }
-        System.out.println("Show map by cities:");
+
         for (Map.Entry<String, List<Order>> entry : cityUserMap.entrySet()) {
             System.out.print("city: " + entry.getKey() + " -> users: ");
             for (Order ord : entry.getValue()) {
