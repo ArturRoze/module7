@@ -28,17 +28,6 @@ public class MainForList {
         List<Order> basicList6 = basicList();
         divideOrdersByCurrency(basicList6);
 
-//        List<User> users = new ArrayList<>();
-//        users.add(new User(1, "Artur", "Roze", "Vyshgorod", 10000));
-//        users.add(new User(2, "Nick", "Shevchenko", "Kiev", 20000));
-//        users.add(new User(3, "David", "Poroshenko", "Kharkov", 30000));
-//        users.add(new User(4, "Erika", "Obida", "Dnepr", 40000));
-//        users.add(new User(5, "Ann", "Borzova", "Irpen", 50000));
-//        users.add(new User(6, "Victor", "Oladenko", "Vinnica", 60000));
-//        users.add(new User(7, "Peter", "Govoruha", "Yalta", 70000));
-//        users.add(new User(8, "Vanya", "Lapot", "Uman", 80000));
-//        users.add(new User(9, "Victor", "Repin", "Kanev", 90000));
-//        users.add(new User(10, "Alisa", "Petrov", "Kursk", 55555));
         List<Order> basicList7 = basicList();
         getCityUserMap(basicList7);
     }
@@ -177,7 +166,7 @@ public class MainForList {
         for (Map.Entry<String, List<Order>> entry : cityUserMap.entrySet()) {
             System.out.print("city: " + entry.getKey() + " -> users: ");
             for (Order ord : entry.getValue()) {
-                System.out.print(ord.getUser().getFirstName() + " " + ord.getUser().getLastName() + ", ");
+                System.out.print(ord.getUser().getFirstName() + " " + ord.getUser().getLastName() + " ");
             }
             System.out.println();
         }
@@ -207,8 +196,8 @@ public class MainForList {
         orders.add(new Order(6, 800, Currency.USD, "Ring", "Rozetka", users.get(5)));
         orders.add(new Order(7, 800, Currency.USD, "Couch", "Mama-Market", users.get(6)));
         orders.add(new Order(8, 2000, Currency.UAH, "Pen", "Rozetka", users.get(7)));
-        orders.add(new Order(10, 555, Currency.UAH, "Marker", "Rozetka", users.get(0)));
-        orders.add(new Order(10, 555, Currency.UAH, "Marker", "Rozetka", users.get(0)));
+        orders.add(new Order(10, 555, Currency.UAH, "Marker", "Rozetka", users.get(8)));
+        orders.add(new Order(10, 555, Currency.UAH, "Marker", "Rozetka", users.get(8)));
         return orders;
     }
 }
