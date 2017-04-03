@@ -1,4 +1,3 @@
-import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -16,7 +15,7 @@ public class MainForTreeSet {
         User user6 = new User(6, "Victor", "Oladenko", "Vinnica", 60000);
         User user7 = new User(7, "Peter", "Govoruha", "Yalta", 70000);
         User user8 = new User(8, "Vanya", "Lapot", "Uman", 80000);
-        User user9 = new User(9, "Alisa", "Petrov", "Kursk", 55555);
+        User user9 = new User(9, "Alick", "Petrov", "Kursk", 55555);
         User user10 = new User(10, "Victor", "Repin", "Kanev", 90000);
 
         orders.add(new Order(2, 200, Currency.UAH, "Umbrella", "Rozetka", user2));
@@ -31,25 +30,47 @@ public class MainForTreeSet {
         orders.add(new Order(9, 900, Currency.USD, "Cup", "Rozetka", user9));
 
         System.out.println("Check LastName Petrov:");
-        for (Order order : orders) {
-            if (order.getUser().getLastName().equals("Petrov")) {
-                System.out.println(order);
-            }
-        }
+        checkLastNamePetrov(orders);
 
         System.out.println("Get last element:");
-        System.out.println(((TreeSet) orders).last());
+        findLastElement(orders);
 
         System.out.println("Remove orders with USD currency:");
-        Iterator<Order> iterator = orders.iterator();
-        while (iterator.hasNext()) {
-            Order foundOrder = iterator.next();
-            if (foundOrder.getCurrency() == Currency.USD) {
-                iterator.remove();
-            }
-        }
-        for (Order order : orders) {
-            System.out.println(order);
-        }
+        removeAllOrdersWithUsd(orders);
+    }
+
+    public static void checkLastNamePetrov(Set<Order> orders) {
+        // use Java 7 ================================================================
+//        for (Order order : orders) {
+//            if (order.getUser().getLastName().equals("Petrov")) {
+//                System.out.println(order);
+//            }
+//        }
+        // use Java 8 ================================================================
+        orders.stream().filter(order -> order.getUser().getLastName().equals("Petrov"))
+                .forEach(System.out::println);
+    }
+
+    public static void findLastElement(Set<Order> orders) {
+        System.out.println(((TreeSet) orders).last());
+    }
+
+    public static void removeAllOrdersWithUsd(Set<Order> orders) {
+        // use Java 7 ================================================================
+//        Iterator<Order> iterator = orders.iterator();
+//        while (iterator.hasNext()) {
+//            Order foundOrder = iterator.next();
+//            if (foundOrder.getCurrency() == Currency.USD) {
+//                iterator.remove();
+//            }
+//        }
+//        for (Order order : orders) {
+//            System.out.println(order);
+//        }
+//    }
+
+        // use Java 8 ================================================================
+        orders.removeIf(order -> order.getCurrency() == Currency.USD);
+        orders.forEach(System.out::println);
     }
 }

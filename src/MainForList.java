@@ -33,21 +33,29 @@ public class MainForList {
         getCityUserMap(basicList7);
     }
 
-    public static List<Order> sortOrdersDecreasePrice(List<Order> order) {
-        if (order == null) {
+    public static List<Order> sortOrdersDecreasePrice(List<Order> orders) {
+        if (orders == null) {
             System.out.println("Nothing sort");
             return null;
         }
-        Collections.sort(order, new Comparator<Order>() {
-            @Override
-            public int compare(Order o1, Order o2) {
-                return o2.getPrice() - o1.getPrice();
-            }
-        });
-        for (Order ord : order) {
-            System.out.println(ord);
-        }
-        return order;
+        // use Java 7 =====================================================
+//        Collections.sort(orders, new Comparator<Order>() {
+//            @Override
+//            public int compare(Order o1, Order o2) {
+//                return o2.getPrice() - o1.getPrice();
+//            }
+//        });
+//        for (Order order : orders) {
+//            System.out.println(order);
+//        }
+//
+//        return orders;
+//    }
+
+        // use Java 8 =====================================================
+        Collections.sort(orders, (o1, o2) -> o2.getPrice() - o1.getPrice());
+        orders.forEach(System.out::println);
+        return orders;
     }
 
     public static List<Order> sortOrdersIncreasePriceAndCityOfUser(List<Order> orders) {
@@ -55,19 +63,32 @@ public class MainForList {
             System.out.println("Nothing sort");
             return null;
         }
-        Collections.sort(orders, new Comparator<Order>() {
-            @Override
-            public int compare(Order o1, Order o2) {
-                int compared = o1.getPrice() - o2.getPrice();
-                if (compared == 0) {
-                    compared = o1.getUser().getCity().compareTo(o2.getUser().getCity());
-                }
-                return compared;
+        // use Java 7 =====================================================
+//        Collections.sort(orders, new Comparator<Order>() {
+//            @Override
+//            public int compare(Order o1, Order o2) {
+//                int compared = o1.getPrice() - o2.getPrice();
+//                if (compared == 0) {
+//                    compared = o1.getUser().getCity().compareTo(o2.getUser().getCity());
+//                }
+//                return compared;
+//            }
+//        });
+//        for (Order ord : orders) {
+//            System.out.println(ord);
+//        }
+//        return orders;
+//    }
+
+        // use Java 8 =====================================================
+        Collections.sort(orders, (o1, o2) -> {
+            int compared = o1.getPrice() - o2.getPrice();
+            if (compared == 0) {
+                compared = o1.getUser().getCity().compareTo(o2.getUser().getCity());
             }
+            return compared;
         });
-        for (Order ord : orders) {
-            System.out.println(ord);
-        }
+        orders.forEach(System.out::println);
         return orders;
     }
 
@@ -76,22 +97,37 @@ public class MainForList {
             System.out.println("Nothing sort");
             return null;
         }
-        Collections.sort(orders, new Comparator<Order>() {
-            @Override
-            public int compare(Order o1, Order o2) {
-                int compared = o1.getItemName().compareTo(o2.getItemName());
-                if (compared == 0) {
-                    compared = o1.getShopIdentifier().compareTo(o2.getShopIdentifier());
-                }
-                if (compared == 0) {
-                    compared = o1.getUser().getCity().compareTo(o2.getUser().getCity());
-                }
-                return compared;
+        // use Java 7 =====================================================
+//        Collections.sort(orders, new Comparator<Order>() {
+//            @Override
+//            public int compare(Order o1, Order o2) {
+//                int compared = o1.getItemName().compareTo(o2.getItemName());
+//                if (compared == 0) {
+//                    compared = o1.getShopIdentifier().compareTo(o2.getShopIdentifier());
+//                }
+//                if (compared == 0) {
+//                    compared = o1.getUser().getCity().compareTo(o2.getUser().getCity());
+//                }
+//                return compared;
+//            }
+//        });
+//        for (Order ord : orders) {
+//            System.out.println(ord);
+//        }
+//        return orders;
+//    }
+        // use Java 8 =====================================================
+        Collections.sort(orders, (o1, o2) -> {
+            int compared = o1.getItemName().compareTo(o2.getItemName());
+            if (compared == 0) {
+                compared = o1.getShopIdentifier().compareTo(o2.getShopIdentifier());
             }
+            if (compared == 0) {
+                compared = o1.getUser().getCity().compareTo(o2.getUser().getCity());
+            }
+            return compared;
         });
-        for (Order ord : orders) {
-            System.out.println(ord);
-        }
+        orders.forEach(System.out::println);
         return orders;
     }
 
@@ -101,9 +137,15 @@ public class MainForList {
             return null;
         }
         Set<Order> uniqueElements = new HashSet<>(orders);
-        for (Order uniqueElement : uniqueElements) {
-            System.out.println(uniqueElement);
-        }
+        // use Java 7 =====================================================
+//        for (Order uniqueElement : uniqueElements) {
+//            System.out.println(uniqueElement);
+//        }
+//        return uniqueElements;
+//    }
+
+        // use Java 8 =====================================================
+        uniqueElements.forEach(System.out::println);
         return uniqueElements;
     }
 
@@ -112,16 +154,18 @@ public class MainForList {
             System.out.println("Nothing sort");
             return null;
         }
-        Iterator<Order> iterator = orders.iterator();
-        while (iterator.hasNext()) {
-            Order nextElement = iterator.next();
-            if (nextElement.getPrice() < 1500) {
-                iterator.remove();
-            }
-        }
-        for (Order ord : orders) {
-            System.out.println(ord);
-        }
+        // use Java 7 =====================================================
+//        Iterator<Order> iterator = orders.iterator();
+//        while (iterator.hasNext()) {
+//            Order nextElement = iterator.next();
+//            if (nextElement.getPrice() < 1500) {
+//                iterator.remove();
+//            }
+//        }
+
+        // use Java 8 =====================================================
+        orders.removeIf(order -> order.getPrice() < 1500);
+        orders.forEach(System.out::println);
         return orders;
     }
 
@@ -132,28 +176,36 @@ public class MainForList {
         }
         List<Order> ordersWithUah = new ArrayList<>();
         List<Order> ordersWithUsd = new ArrayList<>();
+        // use Java 7 =====================================================
+//        for (int i = 0; i < orders.size(); i++) {
+//            if (orders.get(i).getCurrency() == Currency.UAH ? ordersWithUah.add(orders.get(i))
+//                    : ordersWithUsd.add(orders.get(i)));
+//        }
+//        System.out.println("Orders with UAH:");
+//        for (Order ord : ordersWithUah) {
+//            System.out.println(ord);
+//        }
+//        System.out.println("Orders with USD:");
+//        for (Order ord : ordersWithUsd) {
+//            System.out.println(ord);
+//        }
+//        return orders;
+//    }
 
-        for (int i = 0; i < orders.size(); i++) {
-            if (orders.get(i).getCurrency() == Currency.UAH) {
-                ordersWithUah.add(orders.get(i));
-            } else {
-                ordersWithUsd.add(orders.get(i));
-            }
-        }
+        // use Java 8 =====================================================
+        orders.stream().filter(s -> s.getCurrency() == Currency.UAH).forEach(ordersWithUah::add);
+        orders.stream().filter(s -> s.getCurrency() == Currency.USD).forEach(ordersWithUsd::add);
+
         System.out.println("Orders with UAH:");
-        for (Order ord : ordersWithUah) {
-            System.out.println(ord);
-        }
+        ordersWithUah.forEach(System.out::println);
         System.out.println("Orders with USD:");
-        for (Order ord : ordersWithUsd) {
-            System.out.println(ord);
-        }
+        ordersWithUsd.forEach(System.out::println);
         return orders;
     }
-
+        // use Java 8 =====================================================
     public static Map<String, List<Order>> getCityUserMap(List<Order> orders) {
         Map<String, List<Order>> cityUserMap = new HashMap<>();
-        for (Order order : orders) {
+        orders.forEach(order -> {
             String key = order.getUser().getCity();
             if (!cityUserMap.containsKey(key)) {
                 List<Order> usersCity = new ArrayList<>();
@@ -162,15 +214,14 @@ public class MainForList {
             } else {
                 cityUserMap.get(key).add(order);
             }
-        }
-
-        for (Map.Entry<String, List<Order>> entry : cityUserMap.entrySet()) {
-            System.out.print("city: " + entry.getKey() + " -> users: ");
-            for (Order ord : entry.getValue()) {
-                System.out.print(ord.getUser().getFirstName() + " " + ord.getUser().getLastName() + " ");
-            }
+        });
+        cityUserMap.entrySet().forEach(cities -> {
+            System.out.print("city: " + cities.getKey() + " -> users: ");
+            cities.getValue().forEach(order -> {
+                System.out.print(order.getUser().getFirstName() + " " + order.getUser().getLastName() + " ");
+            });
             System.out.println();
-        }
+        });
         return cityUserMap;
     }
 
