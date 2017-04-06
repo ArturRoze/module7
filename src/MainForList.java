@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MainForList {
 
@@ -30,7 +31,7 @@ public class MainForList {
 
         System.out.println("Show map of unique cities:");
         List<Order> basicList7 = basicList();
-        getCityUserMap(basicList7);
+        groupingByUniqueCities(basicList7);
     }
 
     public static List<Order> sortOrdersDecreasePrice(List<Order> orders) {
@@ -202,27 +203,34 @@ public class MainForList {
         ordersWithUsd.forEach(System.out::println);
         return orders;
     }
-        // use Java 8 =====================================================
-    public static Map<String, List<Order>> getCityUserMap(List<Order> orders) {
-        Map<String, List<Order>> cityUserMap = new HashMap<>();
-        orders.forEach(order -> {
-            String key = order.getUser().getCity();
-            if (!cityUserMap.containsKey(key)) {
-                List<Order> usersCity = new ArrayList<>();
-                usersCity.add(order);
-                cityUserMap.put(key, usersCity);
-            } else {
-                cityUserMap.get(key).add(order);
-            }
-        });
-        cityUserMap.entrySet().forEach(cities -> {
-            System.out.print("city: " + cities.getKey() + " -> users: ");
-            cities.getValue().forEach(order -> {
-                System.out.print(order.getUser().getFirstName() + " " + order.getUser().getLastName() + " ");
-            });
-            System.out.println();
-        });
-        return cityUserMap;
+
+    // use Java 7 =====================================================
+//    public static Map<String, List<Order>> getCityUserMap(List<Order> orders) {
+//        Map<String, List<Order>> cityUserMap = new HashMap<>();
+//        orders.forEach(order -> {
+//            String key = order.getUser().getCity();
+//            if (!cityUserMap.containsKey(key)) {
+//                List<Order> usersCity = new ArrayList<>();
+//                usersCity.add(order);
+//                cityUserMap.put(key, usersCity);
+//            } else {
+//                cityUserMap.get(key).add(order);
+//            }
+//        });
+//        cityUserMap.entrySet().forEach(cities -> {
+//            System.out.print("city: " + cities.getKey() + " -> users: ");
+//            cities.getValue().forEach(order -> {
+//                System.out.print(order.getUser().getFirstName() + " " + order.getUser().getLastName() + " ");
+//            });
+//            System.out.println();
+//        });
+//        return cityUserMap;
+//    }
+    // use Java 8 =====================================================
+    public static Map <String, List <Order>> groupingByUniqueCities ( List <Order> orders ) {
+        Map<String, List<Order>> collect = orders.stream().collect(Collectors.groupingBy(order -> order.getUser().getCity()));
+        collect.forEach ( ( key, value ) -> System.out.println ( key + ": " + value ) );
+        return collect;
     }
 
     public static List<Order> basicList() {
